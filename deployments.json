@@ -1,0 +1,24 @@
+{
+  "sepolia": {
+    "chainId": 11155111,
+    "explorer": "https://sepolia.etherscan.io",
+    "contracts": {
+      "VoucherVault": {
+        "address": "0xa194A96F6812C153F71B2448C937BB9454ad1614",
+        "verified": true,
+        "url": "https://sepolia.etherscan.io/address/0xa194a96f6812c153f71b2448c937bb9454ad1614#code"
+      },
+      "MockUSDT": {
+        "address": "0x509e7C1758ba12C6907f93D4ee6458b6DEB8353C",
+        "verified": true,
+        "url": "https://sepolia.etherscan.io/address/0x509e7c1758ba12c6907f93d4ee6458b6deb8353c#code"
+      }
+    },
+    "proof": {
+      "redeemTx": "0x6776cd7dd7c2b9fc4358cf4734674663b6c950bcab796092d0f01718e37f5f21",
+      "redeemTxUrl": "https://sepolia.etherscan.io/tx/0x6776cd7dd7c2b9fc4358cf4734674663b6c950bcab796092d0f01718e37f5f21",
+      "description": "Merchant A redeemed a buyer-signed voucher for 1 USDT; a second redeem of the same voucherId reverts with 'already spent'."
+    },
+    "compiler": { "solc": "0.8.20", "optimizer": true, "runs": 200 }
+  }
+}
