@@ -54,8 +54,16 @@ async function main() {
   );
   const deployerAddr = await deployer.getAddress();
   const net = await provider.getNetwork();
-  console.log(`rpc        ${rpc}  (chainId ${net.chainId})`);
+  const chainId = Number(net.chainId);
+  const EXPLORER = { 11155111: 'https://sepolia.etherscan.io', 1: 'https://etherscan.io' }[chainId];
+  const txLink = (h) => EXPLORER ? `${EXPLORER}/tx/${h}` : h;
+  console.log(`rpc        ${rpc}  (chainId ${chainId})`);
   console.log(`deployer   ${deployerAddr}`);
+
+  // live-network guard: make sure the deployer can actually pay for gas
+  const gasBal = await provider.getBalance(deployerAddr);
+  console.log(`gas funds  ${ethers.formatEther(gasBal)} ETH`);
+  if (gasBal === 0n) { console.error('❌ deployer has 0 ETH — fund it from a faucet first.'); process.exit(1); }
 
   // identities — `buyer` (raw wallet) is used for address + offline signing;
   // `buyerSigner` (NonceManager) drives on-chain txs without nonce collisions.
@@ -64,8 +72,9 @@ async function main() {
   const merchantA   = ethers.Wallet.createRandom();
   const merchantB   = ethers.Wallet.createRandom();
 
-  // fund buyer with a little ETH for gas (from deployer)
-  await (await deployer.sendTransaction({ to: buyer.address, value: ethers.parseEther('1') })).wait();
+  // fund buyer with a little ETH for gas (from deployer). Keep it small on live nets.
+  const buyerGas = chainId === 31337 ? ethers.parseEther('1') : ethers.parseEther('0.01');
+  await (await deployer.sendTransaction({ to: buyer.address, value: buyerGas })).wait();
 
   // --- deploy USDT (mock) unless a real one is provided ---
   let usdtAddr = process.env.USDT_ADDRESS;
@@ -120,6 +129,7 @@ async function main() {
   const after = await usdt.balanceOf(merchantA.address);
   console.log(`\n✅ [ONLINE] Merchant A redeemed`);
   console.log(`   tx hash  ${rcpt.hash}`);
+  console.log(`   explorer ${txLink(rcpt.hash)}`);
   console.log(`   payout   ${(after - before) / ONE} USDT -> Merchant A`);
   console.log(`   spent[id] = ${await vault.spent(voucher.voucherId)}`);
 
