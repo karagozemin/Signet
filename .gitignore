@@ -21,3 +21,7 @@ broadcast/
 .vscode/
 .idea/
 *.swp
+
+# --- web build ---
+web/dist/
+web/node_modules/
