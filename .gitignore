@@ -1,0 +1,23 @@
+# --- dependencies ---
+node_modules/
+**/node_modules/
+
+# --- secrets / environment ---
+.env
+.env.*
+!.env.example
+**/.env
+
+# --- Foundry / Solidity build artifacts ---
+out/
+cache/
+broadcast/
+
+# --- logs & temp ---
+*.log
+.DS_Store
+
+# --- editor ---
+.vscode/
+.idea/
+*.swp
