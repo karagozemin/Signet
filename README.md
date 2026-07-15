@@ -1,10 +1,34 @@
-# 🖋️ Signet — _Value, sealed._
+<p align="center">
+  <img src="web/public/Signet.png" alt="Signet" width="180" />
+</p>
 
-**Pre-funded USDT vouchers, accepted offline over a local P2P mesh, settled on-chain when connectivity returns.**
+<h1 align="center">Signet — <em>Value, sealed.</em></h1>
+
+<p align="center">
+  <strong>Pre-funded USDT vouchers, accepted offline over a local P2P mesh, settled on-chain when connectivity returns.</strong>
+</p>
+
+<p align="center">
+  <a href="#live-on-sepolia-">Live on Sepolia</a> ·
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#security-model">Security model</a> ·
+  <a href="./ARCHITECTURE.md"><strong>Architecture deep-dive →</strong></a>
+</p>
+
+<p align="center">
+  <img alt="chain" src="https://img.shields.io/badge/network-Sepolia-6f42c1" />
+  <img alt="contracts" src="https://img.shields.io/badge/contracts-verified-2ea44f" />
+  <img alt="tests" src="https://img.shields.io/badge/tests-15%2F15-2ea44f" />
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-blue" />
+  <img alt="node" src="https://img.shields.io/badge/node-%E2%89%A520.6-339933" />
+</p>
 
 Signet lets people transact in stablecoins **without internet, without a bank, and without a server** — then anchors every payment to Ethereum the moment a connection reappears. Cryptography secures the money; an on-device AI makes it usable in any language.
 
+> 📐 **Want the full picture?** The complete system design — flows, sequence diagrams, threat model and the double-spend proof — lives in **[`ARCHITECTURE.md`](./ARCHITECTURE.md)**.
+
 ---
+
 
 ## The problem
 
@@ -18,7 +42,7 @@ A buyer **pre-funds** a vault on-chain while they have connectivity. Offline, th
 
 ---
 
-## Architecture
+## Architecture at a glance
 
 ```
   🎙️ QVAC              🖋️ Voucher core          📡 Pears mesh            ⛓️ VoucherVault
@@ -34,8 +58,12 @@ A buyer **pre-funds** a vault on-chain while they have connectivity. Offline, th
 | **Voucher core** | `shared/voucher.js` | Create, sign (EIP-191) and verify single-use vouchers bound to `(merchant, invoiceHash)`. Fully offline. |
 | **Mesh** | `peer/mesh.js` | Serverless device-to-device transport over Pears/Hyperswarm + replication of the local `seen` set for **offline** double-spend warning. |
 | **Settlement** | `contracts/VoucherVault.sol` | Buyers lock USDT; merchants redeem signed vouchers. `spent[voucherId]` is the **final** arbiter — first redeem wins, every later one reverts. |
+| **Bridge + UI** | `bridge/server.js`, `web/` | A Node bridge runs the real mesh peers, crypto and settlement, then streams live events over WebSocket to a Vite/React interface. The UI is a window onto the real system — nothing is faked. |
+
+> This is the **overview**. For the full flow, sequence diagrams, message protocol, threat model and the double-spend proof, read **[`ARCHITECTURE.md`](./ARCHITECTURE.md)**.
 
 ---
+
 
 ## Live on Sepolia ✅
 
@@ -127,8 +155,14 @@ qvac/        invoice.js · qvac-adapter.js (+ tests)
 peer/        mesh.js  (Pears/Hyperswarm)
 app/         signet.js (unified demo) · demo.js (offline only)
 scripts/     settle.js (on-chain settlement, any RPC)
+bridge/      server.js (live WebSocket bridge to the real system)
+web/         Vite/React UI (a live window onto the bridge)
+deploy/      nginx.conf · systemd unit for hosting the bridge
 ```
+
+> A full breakdown of every module, the wire protocol and the settlement math is in **[`ARCHITECTURE.md`](./ARCHITECTURE.md)**.
 
 ---
 
 _No bank. No server. No cloud AI. Connectivity can vanish; commerce need not._
+
