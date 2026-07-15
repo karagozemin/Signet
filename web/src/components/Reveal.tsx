@@ -19,7 +19,7 @@ export function Reveal({
   delay?: number;
   y?: number;
   className?: string;
-  as?: 'div' | 'span' | 'li' | 'p';
+  as?: 'div' | 'span' | 'li' | 'p' | 'h1' | 'h2' | 'h3';
 }) {
   const MotionTag = motion[as] as typeof motion.div;
   return (

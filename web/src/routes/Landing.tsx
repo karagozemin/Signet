@@ -65,9 +65,10 @@ export function Landing() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: EASE, delay: 0.85 }}
           >
-            <MagneticButton>Enter the app</MagneticButton>
-            <MagneticButton variant="ghost">See the proof</MagneticButton>
+            <MagneticButton to="/app">Enter the app</MagneticButton>
+            <MagneticButton to="/proof" variant="ghost">See the proof</MagneticButton>
           </motion.div>
+
         </div>
 
         <div className="hero__ledger mono">
@@ -209,9 +210,10 @@ export function Landing() {
             Value should move like cash<br />and settle like code.
           </Reveal>
           <Reveal className="cta__buttons" delay={0.14}>
-            <MagneticButton>Enter the app</MagneticButton>
-            <MagneticButton variant="ghost">See the proof</MagneticButton>
+            <MagneticButton to="/app">Enter the app</MagneticButton>
+            <MagneticButton to="/proof" variant="ghost">See the proof</MagneticButton>
           </Reveal>
+
         </div>
         <footer className="foot mono">
           <span>SIGNET</span>
