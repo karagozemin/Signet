@@ -20,13 +20,12 @@ export function SealMark({ size = 320 }: { size?: number }) {
       style={{ overflow: 'visible' }}
     >
       <defs>
-        <radialGradient id="wax" cx="42%" cy="38%" r="70%">
-          <stop offset="0%" stopColor="#E0233F" />
-          <stop offset="55%" stopColor="#C8102E" />
-          <stop offset="100%" stopColor="#8E0B20" />
-        </radialGradient>
         <path id="legendPath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" fill="none" />
+        <clipPath id="sealClip">
+          <circle cx="100" cy="100" r="53" />
+        </clipPath>
       </defs>
+
 
       {/* rotating outer legend */}
       <motion.g
@@ -43,22 +42,22 @@ export function SealMark({ size = 320 }: { size?: number }) {
       <circle cx="100" cy="100" r="66" fill="none" stroke="#C6A15B" strokeOpacity="0.35" strokeWidth="0.8" />
       <circle cx="100" cy="100" r="60" fill="none" stroke="#C6A15B" strokeOpacity="0.55" strokeWidth="0.6" />
 
-      {/* wax disc with breathing pulse */}
-      <motion.circle
-        cx="100" cy="100" r="52" fill="url(#wax)"
+      {/* signet logo with breathing pulse */}
+      <motion.g
         animate={{ scale: [1, 1.015, 1] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
         style={{ originX: '100px', originY: '100px', filter: 'drop-shadow(0 8px 24px rgba(200,16,46,0.35))' }}
-      />
-      {/* wax rim highlight */}
+      >
+        <image
+          href="/signet.png"
+          x="47" y="47" width="106" height="106"
+          clipPath="url(#sealClip)"
+          preserveAspectRatio="xMidYMid slice"
+        />
+      </motion.g>
+      {/* rim highlight */}
       <circle cx="100" cy="100" r="52" fill="none" stroke="#F4F1EA" strokeOpacity="0.12" strokeWidth="1.4" />
-
-      {/* engraved S */}
-      <text
-        x="100" y="128" textAnchor="middle"
-        fontFamily="Instrument Serif, serif" fontSize="78"
-        fill="#F4F1EA" fillOpacity="0.92"
-      >S</text>
     </motion.svg>
+
   );
 }
