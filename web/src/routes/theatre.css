@@ -73,26 +73,29 @@
   transition: all 0.16s var(--ease);
 }
 .act:hover:not(:disabled) { border-color: var(--ink); background: var(--paper); }
+.act:active:not(:disabled) { transform: scale(0.96); }
 .act:disabled { opacity: 0.38; cursor: not-allowed; }
 .act--wax { background: var(--wax); border-color: var(--wax); color: #fff; }
 .act--wax:hover:not(:disabled) { background: var(--wax-ink); border-color: var(--wax-ink); }
 .act--ghost { background: transparent; }
 
-/* voucher card */
+/* voucher card — dark bearer note, brass edge */
 .voucher {
   display: flex; gap: 14px; align-items: center;
-  background: linear-gradient(135deg, #fff, var(--brass-soft));
-  border: 1px solid var(--line-2); border-radius: 12px;
-  padding: 18px; box-shadow: var(--shadow-sm);
+  background:
+    radial-gradient(120% 140% at 100% 0%, var(--brass-soft), transparent 60%),
+    linear-gradient(135deg, var(--paper-3), var(--paper-2));
+  border: 1px solid var(--brass); border-radius: 12px;
+  padding: 18px; box-shadow: var(--shadow), 0 0 0 1px rgba(214,172,99,0.08) inset;
 }
 .voucher__seal {
   width: 40px; height: 40px; border-radius: 50%;
   background: radial-gradient(circle at 35% 30%, #e04258, var(--wax) 60%, var(--wax-ink));
-  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.25);
+  box-shadow: inset 0 -2px 4px rgba(0,0,0,0.35), 0 0 0 3px var(--wax-glow);
   flex-shrink: 0;
 }
-.voucher__amt { font-size: 26px; }
-.voucher__amt span { font-size: 13px; color: var(--ink-3); }
+.voucher__amt { font-size: 26px; color: var(--ink); }
+.voucher__amt span { font-size: 13px; color: var(--brass); }
 .voucher__id { font-size: 11px; color: var(--ink-2); margin: 2px 0; }
 .voucher__meta { font-size: 9px; letter-spacing: 0.16em; color: var(--brass); }
 

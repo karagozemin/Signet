@@ -112,7 +112,7 @@ input { font-family: inherit; }
   transform: translateY(-1px);
   box-shadow: var(--shadow);
 }
-.mag-btn:active { transform: translateY(0); }
+.mag-btn:active { transform: translateY(0) scale(0.96); }
 
 .mag-btn--solid { background: var(--wax); border-color: var(--wax); color: #fff; }
 .mag-btn--solid:hover { background: var(--wax-ink); border-color: var(--wax-ink); }
