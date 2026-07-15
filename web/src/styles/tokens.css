@@ -1,27 +1,30 @@
 /* ─────────────────────────────────────────────────────────────
-   Signet — design tokens (light, high-contrast, calm)
-   No smooth-scroll hijacking, no grain, no vignette. Just clean.
+   Signet — design tokens (dark, warm-ink, editorial)
    ───────────────────────────────────────────────────────────── */
 
+
 :root {
-  /* palette — light */
-  --paper:      #F7F5F0;   /* page background */
-  --paper-2:    #FFFFFF;   /* cards / raised surfaces */
-  --ink:        #14110E;   /* primary text */
-  --ink-2:      #4B4640;   /* secondary text */
-  --ink-3:      #8A847A;   /* muted / labels */
-  --line:       #E4DFD5;   /* hairline borders */
-  --line-2:     #D2CCBF;   /* stronger borders */
+  /* palette — dark, warm ink */
+  --paper:      #0B0A09;   /* page background */
+  --paper-2:    #141210;   /* cards / raised surfaces */
+  --paper-3:    #1C1917;   /* elevated / inset panels */
+  --ink:        #F5F1E8;   /* primary text */
+  --ink-2:      #B8B0A2;   /* secondary text */
+  --ink-3:      #7C766B;   /* muted / labels */
+  --line:       #262220;   /* hairline borders */
+  --line-2:     #383330;   /* stronger borders */
 
-  --wax:        #C8102E;   /* wax red — signature accent */
-  --wax-ink:    #9E0C24;
-  --brass:      #A9843F;   /* brass — secondary accent */
-  --brass-soft: #F1E7D2;
+  --wax:        #E23048;   /* wax red — signature accent */
+  --wax-ink:    #B01E33;
+  --wax-glow:   rgba(226, 48, 72, 0.22);
+  --brass:      #D6AC63;   /* brass — secondary accent */
+  --brass-soft: #2A2417;
 
-  --ok:         #1E7A46;   /* accepted / confirmed */
-  --ok-soft:    #E4F2E9;
-  --no:         #C8102E;   /* rejected / reverted */
-  --no-soft:    #FBE7EA;
+  --ok:         #3FBE74;   /* accepted / confirmed */
+  --ok-soft:    #14261C;
+  --no:         #E23048;   /* rejected / reverted */
+  --no-soft:    #2A1418;
+
 
   /* type */
   --font-display: 'Instrument Serif', Georgia, serif;
@@ -136,9 +139,10 @@ input { font-family: inherit; }
   justify-content: space-between;
   gap: 16px;
   padding: 16px clamp(20px, 5vw, 56px);
-  background: rgba(247, 245, 240, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(11, 10, 9, 0.72);
+  backdrop-filter: blur(14px) saturate(1.2);
   border-bottom: 1px solid var(--line);
+
 }
 .thead__back, .thead__proof {
   font-size: 12px;

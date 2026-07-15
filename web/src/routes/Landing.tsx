@@ -14,9 +14,13 @@ export function Landing() {
   return (
     <main className="landing">
       <header className="nav">
-        <div className="nav__mark mono">SIGNET</div>
+        <div className="nav__brand">
+          <img className="nav__logo" src="/signet.png" alt="Signet" />
+          <span className="nav__mark mono">SIGNET</span>
+        </div>
         <div className="nav__meta mono">SEPOLIA · LIVE</div>
       </header>
+
 
       {/* ── 1 · HERO ─────────────────────────────────────────── */}
       <section className="hero">
