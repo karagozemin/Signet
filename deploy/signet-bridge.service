@@ -1,0 +1,32 @@
+# /etc/systemd/system/signet-bridge.service
+#
+# Runs the Signet bridge as a managed service (auto-restart, boot-start).
+#
+#   sudo cp deploy/signet-bridge.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now signet-bridge
+#   journalctl -u signet-bridge -f      # follow logs
+#
+# For live Sepolia, drop RPC_URL + PRIVATE_KEY into /opt/signet/.env
+# and this unit will pick them up (EnvironmentFile below).
+
+[Unit]
+Description=Signet Bridge (mesh + chain seam)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/signet
+# .env is optional — comment out for the local-anvil demo
+EnvironmentFile=-/opt/signet/.env
+Environment=BRIDGE_PORT=8787
+Environment=BRIDGE_HOST=127.0.0.1
+ExecStart=/usr/bin/node bridge/server.js
+Restart=on-failure
+RestartSec=3
+# anvil needs the foundry binaries on PATH
+Environment=PATH=/root/.foundry/bin:/usr/local/bin:/usr/bin:/bin
+
+[Install]
+WantedBy=multi-user.target
