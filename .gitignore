@@ -29,3 +29,7 @@ web/node_modules/
 # TS incremental build cache
 *.tsbuildinfo
 web/tsconfig.tsbuildinfo
+
+# --- local reference screenshots ---
+signet-frontend.png
+*.local.png
