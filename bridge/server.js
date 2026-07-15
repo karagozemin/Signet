@@ -106,8 +106,16 @@ async function initSession() {
   const buyerMesh = await new SignetMesh('buyer').join();
   const meshA = await new SignetMesh('merchant-a').join();
   const meshB = await new SignetMesh('merchant-b').join();
-  for (let i = 0; i < 20 && (meshA.peers.size < 1 || meshB.peers.size < 1); i++) await sleep(400);
-  emit('mesh:connected', { a: meshA.peers.size, b: meshB.peers.size });
+  // Wait for a fully-formed 3-node swarm: every peer must see the other two.
+  // A partial mesh (e.g. buyer not linked to A) silently drops the voucher.
+  const fullyConnected = () =>
+    buyerMesh.peers.size >= 2 && meshA.peers.size >= 2 && meshB.peers.size >= 2;
+  for (let i = 0; i < 50 && !fullyConnected(); i++) await sleep(400);
+  if (!fullyConnected()) {
+    emit('log', { msg: `mesh partial (buyer:${buyerMesh.peers.size} a:${meshA.peers.size} b:${meshB.peers.size}) — continuing` });
+  }
+  emit('mesh:connected', { buyer: buyerMesh.peers.size, a: meshA.peers.size, b: meshB.peers.size });
+
 
   // merchant A: verify + accept offline, replicate spend
   meshA.on('voucher', ({ to, voucher, signature, invoice, buyer: b }) => {
