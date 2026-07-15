@@ -265,10 +265,14 @@ wss.on('connection', (ws) => {
   ws.on('close', () => clients.delete(ws));
 });
 
-server.listen(PORT, () => {
-  console.log(`🌉 Signet bridge on http://127.0.0.1:${PORT}  (ws: /ws)`);
+// Behind Nginx we bind to loopback (default). To expose the bridge directly,
+// set BRIDGE_HOST=0.0.0.0.
+const HOST = process.env.BRIDGE_HOST || '127.0.0.1';
+server.listen(PORT, HOST, () => {
+  console.log(`🌉 Signet bridge on http://${HOST}:${PORT}  (ws: /ws)`);
   console.log(`   ${process.env.RPC_URL ? 'RPC: ' + process.env.RPC_URL : 'local anvil (auto)'}`);
 });
+
 
 process.on('SIGINT', async () => { await destroySession(); process.exit(0); });
 process.on('SIGTERM', async () => { await destroySession(); process.exit(0); });

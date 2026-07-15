@@ -11,6 +11,29 @@ import { create } from 'zustand';
 
 export type BridgeEvent = { type: string; data: any; t: number };
 
+/**
+ * Where the bridge lives.
+ *
+ * By default we talk to the SAME origin the page is served from — this is the
+ * clean single-droplet setup where Nginx serves the static build and proxies
+ * /api + /ws to the local bridge. If the bridge lives elsewhere, set
+ * VITE_BRIDGE_URL (e.g. https://bridge.example.com) at build time.
+ */
+const BRIDGE = (import.meta.env.VITE_BRIDGE_URL || '').replace(/\/$/, '');
+
+function httpUrl(path: string) {
+  return BRIDGE ? `${BRIDGE}${path}` : path;
+}
+
+function wsUrl() {
+  if (BRIDGE) {
+    return BRIDGE.replace(/^http/, 'ws') + '/ws';
+  }
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  return `${proto}://${location.host}/ws`;
+}
+
+
 export type Phase =
   | 'idle'          // not connected / no session
   | 'booting'       // session/init in flight
@@ -116,8 +139,8 @@ export const useSession = create<SessionState>((set, get) => ({
 
   connect() {
     if (get()._ws) return;
-    const proto = location.protocol === 'https:' ? 'wss' : 'ws';
-    const ws = new WebSocket(`${proto}://${location.host}/ws`);
+    const ws = new WebSocket(wsUrl());
+
 
     ws.onopen = () => set({ connected: true });
     ws.onclose = () => {
@@ -209,8 +232,9 @@ export const useSession = create<SessionState>((set, get) => ({
   },
 
   async post(path, body) {
-    const res = await fetch(path, {
+    const res = await fetch(httpUrl(path), {
       method: 'POST',
+
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body ?? {}),
     });
