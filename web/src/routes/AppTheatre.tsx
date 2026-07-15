@@ -184,13 +184,21 @@ export function AppTheatre() {
             )}
 
             <div className="acts">
-              <button className="act" disabled={!canInvoice} onClick={() => s.invoice(s.invoiceInput)}>
-                Parse invoice (QVAC)
+              <button className="act act--parse" disabled={!canInvoice} onClick={() => s.invoice(s.invoiceInput)}>
+                <svg className="act__ico" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden>
+                  <rect x="3" y="2" width="10" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                  <line className="ic-scan" x1="4.5" y1="8" x2="11.5" y2="8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                </svg>
+                <span>Parse invoice (QVAC)</span>
               </button>
-              <button className="act" disabled={!canSign} onClick={() => s.sign()}>
-                Sign voucher
+              <button className="act act--sign" disabled={!canSign} onClick={() => s.sign()}>
+                <svg className="act__ico" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden>
+                  <path className="ic-ink" d="M2 12 Q5 5 8 9.5 T14 5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" pathLength={1} />
+                </svg>
+                <span>Sign voucher</span>
               </button>
             </div>
+
 
             {s.voucherId && (
               <AnimatePresence>
@@ -225,13 +233,23 @@ export function AppTheatre() {
             </p>
 
             <div className="acts acts--col">
-              <button className="act act--wax" disabled={!canSend} onClick={() => s.send('A')}>
-                Send to Merchant A
+              <button className="act act--wax act--send" disabled={!canSend} onClick={() => s.send('A')}>
+                <span>Send to Merchant A</span>
+                <svg className="act__ico act__ico--send" viewBox="0 0 18 12" width="18" height="12" fill="none" aria-hidden>
+                  <line x1="1" y1="6" x2="13" y2="6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                  <path d="M11 2.5 L15.5 6 L11 9.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </button>
-              <button className="act act--ghost" disabled={!canSend} onClick={() => s.send('B')}>
-                Double-spend → Merchant B
+              <button className="act act--ghost act--dupe" disabled={!canSend} onClick={() => s.send('B')}>
+                <svg className="act__ico act__ico--dupe" viewBox="0 0 16 14" width="16" height="14" fill="none" aria-hidden>
+                  <path d="M3 2 V6 Q3 8 5 8 H13" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M3 12 V6" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                  <path d="M11 6 L13 8 L11 10" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>Double-spend → Merchant B</span>
               </button>
             </div>
+
 
             <div className="merchants">
               <div className="merchant">
@@ -264,13 +282,22 @@ export function AppTheatre() {
             </p>
 
             <div className="acts acts--col">
-              <button className="act act--wax" disabled={!canRedeem || settled} onClick={() => s.redeem()}>
-                Redeem on-chain
+              <button className="act act--wax act--redeem" disabled={!canRedeem || settled} onClick={() => s.redeem()}>
+                <svg className="act__ico act__ico--redeem" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden>
+                  <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.3" />
+                  <path className="ic-check" d="M5 8.2 L7.2 10.4 L11 5.8" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" pathLength={1} />
+                </svg>
+                <span>Redeem on-chain</span>
               </button>
-              <button className="act act--ghost" disabled={!settled} onClick={() => s.redeemAgain()}>
-                Try to redeem again
+              <button className="act act--ghost act--again" disabled={!settled} onClick={() => s.redeemAgain()}>
+                <svg className="act__ico act__ico--again" viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden>
+                  <rect x="3.5" y="7" width="9" height="6.5" rx="1.2" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M5.5 7 V5 A2.5 2.5 0 0 1 10.5 5 V7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+                </svg>
+                <span>Try to redeem again</span>
               </button>
             </div>
+
 
             {s.redeemHash && (
               <motion.div

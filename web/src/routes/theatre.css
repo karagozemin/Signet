@@ -76,6 +76,7 @@ a.cref:hover { color: var(--wax); border-bottom-color: var(--wax); }
 .acts--col { flex-direction: column; }
 .act {
   flex: 1; min-width: 0;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   border: 1.5px solid var(--line-2); background: var(--paper-2);
   color: var(--ink); border-radius: 8px; padding: 11px 14px;
   font-size: 13px; font-weight: 600;
@@ -87,6 +88,51 @@ a.cref:hover { color: var(--wax); border-bottom-color: var(--wax); }
 .act--wax { background: var(--wax); border-color: var(--wax); color: #fff; }
 .act--wax:hover:not(:disabled) { background: var(--wax-ink); border-color: var(--wax-ink); }
 .act--ghost { background: transparent; }
+
+/* action icons — subtle, functional micro-motion on hover */
+.act__ico { flex-shrink: 0; color: currentColor; overflow: visible; }
+
+/* parse: the scan line sweeps down through the document */
+.ic-scan { transform-origin: center; transition: transform 0.45s var(--ease); }
+.act--parse:hover:not(:disabled) .ic-scan { animation: scan 0.9s var(--ease); }
+@keyframes scan {
+  0% { transform: translateY(-3px); opacity: 0.3; }
+  50% { opacity: 1; }
+  100% { transform: translateY(3px); opacity: 0.3; }
+}
+
+/* sign: ink flourish draws itself */
+.ic-ink { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.act--sign:hover:not(:disabled) .ic-ink { animation: draw 0.7s var(--ease); }
+@keyframes draw {
+  0% { stroke-dashoffset: 1; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* send: arrow glides forward */
+.act__ico--send { transition: transform 0.25s var(--ease); }
+.act--send:hover:not(:disabled) .act__ico--send { transform: translateX(4px); }
+
+/* double-spend: the fork icon shivers — this action is meant to be caught */
+.act--dupe:hover:not(:disabled) .act__ico--dupe { animation: shiver 0.4s ease-in-out; }
+@keyframes shiver {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-1.5px); }
+  75% { transform: translateX(1.5px); }
+}
+
+/* redeem: the check draws in like a settlement confirmation */
+.ic-check { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.act--redeem:hover:not(:disabled) .ic-check { animation: draw 0.55s var(--ease); }
+
+/* try-again: the lock stays shut — a tiny defiant nudge */
+.act--again:hover:not(:disabled) .act__ico--again { animation: shiver 0.4s ease-in-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ic-scan, .ic-ink, .ic-check,
+  .act__ico--send, .act__ico--dupe, .act__ico--again { animation: none !important; transition: none !important; }
+}
+
 
 /* voucher card — dark bearer note, brass edge */
 .voucher {
