@@ -15,7 +15,7 @@ export function Landing() {
     <main className="landing">
       <header className="nav">
         <div className="nav__brand">
-          <img className="nav__logo" src="/signet.png" alt="Signet" />
+          <img className="nav__logo" src="/signet-mark.png" alt="Signet" />
           <span className="nav__mark mono">SIGNET</span>
         </div>
         <div className="nav__meta mono">SEPOLIA · LIVE</div>

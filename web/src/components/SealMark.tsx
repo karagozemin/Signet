@@ -49,7 +49,7 @@ export function SealMark({ size = 320 }: { size?: number }) {
         style={{ originX: '100px', originY: '100px', filter: 'drop-shadow(0 8px 24px rgba(200,16,46,0.35))' }}
       >
         <image
-          href="/signet.png"
+          href="/signet-mark.png"
           x="47" y="47" width="106" height="106"
           clipPath="url(#sealClip)"
           preserveAspectRatio="xMidYMid slice"
