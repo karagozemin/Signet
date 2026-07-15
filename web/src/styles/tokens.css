@@ -44,9 +44,11 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
+
+/* ── native smooth scroll ─────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;

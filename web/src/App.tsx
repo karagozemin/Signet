@@ -3,10 +3,8 @@ import { Landing } from './routes/Landing';
 import { AppTheatre } from './routes/AppTheatre';
 import { Proof } from './routes/Proof';
 import DarkVeil from './components/DarkVeil';
-import { useLenis } from './hooks/useLenis';
 
 export function App() {
-  useLenis();
   return (
     <div className="app-root">
       <div className="darkveil-wrap">
