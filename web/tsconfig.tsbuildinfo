@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/magneticbutton.tsx","./src/components/reveal.tsx","./src/components/sealmark.tsx","./src/hooks/uselenis.ts","./src/routes/apptheatre.tsx","./src/routes/landing.tsx","./src/routes/proof.tsx","./src/store/session.ts"],"version":"5.9.3"}

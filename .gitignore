@@ -25,3 +25,7 @@ broadcast/
 # --- web build ---
 web/dist/
 web/node_modules/
+
+# TS incremental build cache
+*.tsbuildinfo
+web/tsconfig.tsbuildinfo
