@@ -61,3 +61,141 @@
   .hero__seal { grid-column: 1; grid-row: 1; order: 0; opacity: 0.5; position: absolute; right: -10%; top: 8%; z-index: -1; }
   .hero__copy { grid-row: 1; }
 }
+
+/* ── Scenes (shared) ──────────────────────────────────────── */
+.scene {
+  position: relative;
+  padding: clamp(120px, 18vh, 220px) var(--gutter);
+}
+.scene__inner { max-width: var(--maxw); margin: 0 auto; width: 100%; }
+.scene__inner--center { text-align: center; display: grid; justify-items: center; }
+
+.eyebrow {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 22px;
+}
+
+.scene__lead {
+  font-size: clamp(38px, 6.2vw, 92px);
+  line-height: 1.02;
+  max-width: 14ch;
+  margin: 0 0 34px;
+}
+.scene__inner--center .scene__lead { max-width: none; }
+
+.scene__body {
+  font-size: clamp(17px, 1.6vw, 22px);
+  line-height: 1.6;
+  color: var(--paper-dim);
+  max-width: 56ch;
+  margin: 0 0 22px;
+}
+.scene__accent {
+  font-size: clamp(18px, 1.7vw, 24px);
+  line-height: 1.5;
+  color: var(--paper);
+  max-width: 52ch;
+  border-left: 2px solid var(--wax);
+  padding-left: 22px;
+}
+
+/* ── How it works — journey ───────────────────────────────── */
+.journey {
+  list-style: none; margin: 60px 0 0; padding: 0;
+  display: grid; gap: 2px;
+  border-top: 1px solid rgba(198,161,91,0.16);
+}
+.journey__step {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 28px;
+  align-items: start;
+  padding: 34px 0;
+  border-bottom: 1px solid rgba(198,161,91,0.16);
+}
+.journey__k { font-size: 13px; letter-spacing: 0.2em; color: var(--brass); padding-top: 8px; }
+.journey__t { font-size: clamp(28px, 3.4vw, 44px); margin: 0 0 10px; }
+.journey__d { font-size: clamp(15px, 1.4vw, 18px); line-height: 1.6; color: var(--paper-dim); max-width: 60ch; }
+
+/* ── Double-spend peak ────────────────────────────────────── */
+.scene--peak { background: rgba(200,16,46,0.03); }
+.peak__line {
+  font-size: clamp(34px, 5.4vw, 76px);
+  line-height: 1.05;
+  margin: 0 0 56px;
+}
+.peak__grid {
+  display: flex; align-items: stretch; justify-content: center;
+  gap: 28px; flex-wrap: wrap; width: 100%;
+}
+.peak__card {
+  flex: 1 1 320px; max-width: 420px;
+  border: 1px solid rgba(198,161,91,0.22);
+  padding: 34px 30px;
+  background: rgba(14,13,12,0.4);
+  text-align: left;
+}
+.peak__tag { font-size: 11px; letter-spacing: 0.28em; margin-bottom: 20px; }
+.peak__tag--ok { color: var(--brass); }
+.peak__tag--no { color: var(--paper-mute); }
+.peak__verdict {
+  font-family: var(--mono, 'JetBrains Mono', monospace);
+  font-size: clamp(28px, 3.4vw, 40px);
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.peak__verdict--ok { color: #6FBF73; }
+.peak__verdict--no { color: var(--wax); }
+.peak__note { font-size: 15px; line-height: 1.55; color: var(--paper-dim); }
+.peak__vs { align-self: center; font-size: 13px; letter-spacing: 0.2em; color: var(--paper-mute); }
+.peak__foot {
+  margin: 52px auto 0; max-width: 60ch;
+  font-size: clamp(16px, 1.5vw, 20px); line-height: 1.6; color: var(--paper-dim);
+}
+.wax-word { color: var(--wax); }
+
+/* ── On-chain proof ───────────────────────────────────────── */
+.proof__card {
+  margin-top: 44px;
+  border: 1px solid rgba(198,161,91,0.22);
+  background: rgba(14,13,12,0.4);
+  max-width: 760px;
+}
+.proof__row {
+  display: flex; align-items: center; gap: 24px;
+  padding: 20px 26px;
+  border-bottom: 1px solid rgba(198,161,91,0.12);
+}
+.proof__row:last-child { border-bottom: none; }
+.proof__label { font-size: 11px; letter-spacing: 0.24em; color: var(--paper-mute); min-width: 96px; }
+.proof__val { font-size: 14px; color: var(--paper); text-decoration: none; word-break: break-all; }
+a.proof__val:hover { color: var(--brass); text-decoration: underline; }
+.proof__val--ok { color: #6FBF73; }
+
+/* ── Manifesto + CTA ──────────────────────────────────────── */
+.scene--cta { padding-bottom: 0; }
+.cta__mark { margin-bottom: 40px; }
+.cta__line {
+  font-size: clamp(34px, 5.6vw, 82px);
+  line-height: 1.06;
+  margin: 0 0 44px;
+}
+.cta__buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+.foot {
+  margin-top: clamp(100px, 16vh, 180px);
+  padding: 26px var(--gutter);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  border-top: 1px solid rgba(198,161,91,0.16);
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--paper-mute);
+}
+
+@media (max-width: 640px) {
+  .journey__step { grid-template-columns: 1fr; gap: 10px; }
+  .journey__k { padding-top: 0; }
+  .peak__vs { display: none; }
+}
+

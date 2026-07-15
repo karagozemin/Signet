@@ -7,7 +7,8 @@ import { motion } from 'framer-motion';
  * during the landing -> app transition.
  */
 export function SealMark({ size = 320 }: { size?: number }) {
-  const legend = 'VALVE·SEALED·SIGNET·OFFLINE·ONCHAIN·';
+  const legend = 'VALUE·SEALED·SIGNET·OFFLINE·ONCHAIN·';
+
   return (
     <motion.svg
       width={size}
