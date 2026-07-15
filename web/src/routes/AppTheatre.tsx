@@ -11,6 +11,31 @@ function short(a?: string | null) {
   return `${a.slice(0, 6)}…${a.slice(-4)}`;
 }
 
+/**
+ * A reference to something real on-chain. Renders a short mono hash and, when a
+ * public explorer exists (i.e. we're on Sepolia, not local anvil), links out to
+ * it. Addresses → /address, transactions → /tx. Off-chain ids (like a voucher
+ * note) are NOT on-chain, so they stay as plain text.
+ */
+function ChainRef({
+  value, kind, explorer, className = 'mono',
+}: {
+  value?: string | null;
+  kind: 'address' | 'tx';
+  explorer: string | null;
+  className?: string;
+}) {
+  if (!value) return <span className={className}>—</span>;
+  if (!explorer) return <span className={className} title={value}>{short(value)}</span>;
+  const href = `${explorer}/${kind === 'tx' ? 'tx' : 'address'}/${value}`;
+  return (
+    <a className={`cref ${className}`} href={href} target="_blank" rel="noreferrer" title={`${value} — open on explorer`}>
+      {short(value)}
+    </a>
+  );
+}
+
+
 const PHASE_LABEL: Record<Phase, string> = {
   idle: 'Not started',
   booting: 'Booting session…',
@@ -124,7 +149,8 @@ export function AppTheatre() {
             <div className="panel__head">
               <span className="panel__no mono">01</span>
               <h2 className="panel__title display">Buyer</h2>
-              <span className="panel__addr mono">{short(s.addr.buyer)}</span>
+              <ChainRef className="panel__addr mono" value={s.addr.buyer} kind="address" explorer={s.explorer} />
+
             </div>
 
             <div className="vault">
@@ -209,13 +235,18 @@ export function AppTheatre() {
 
             <div className="merchants">
               <div className="merchant">
-                <div className="merchant__id mono">MERCHANT A · {short(s.addr.merchantA)}</div>
+                <div className="merchant__id mono">
+                  MERCHANT A · <ChainRef value={s.addr.merchantA} kind="address" explorer={s.explorer} />
+                </div>
                 <VerdictBadge v={s.merchantA} />
               </div>
               <div className="merchant">
-                <div className="merchant__id mono">MERCHANT B · {short(s.addr.merchantB)}</div>
+                <div className="merchant__id mono">
+                  MERCHANT B · <ChainRef value={s.addr.merchantB} kind="address" explorer={s.explorer} />
+                </div>
                 <VerdictBadge v={s.merchantB} />
               </div>
+
             </div>
           </section>
 
